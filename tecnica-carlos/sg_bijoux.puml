@@ -1,0 +1,93 @@
+@startuml
+
+class usuario{
+    -nombreusuario: string
+    -apellidousuario: string
+    -correousuario: string
+    -contraseñausuario: string
+    -telefono: int
+    -direccion: string
+    -infocuentab: string
+    +registrarse(): void
+    +iniciarsesion(): void
+    +cerrarsesion(): void
+    +actualizarperfil(): void
+    +recuperarcontraseña(): void
+}
+
+class cliente extends usuario{
+    -metodopago: string
+    -historialcompras: string
+    +realizarcompra(): void
+    +vercatalogo(): void
+    +agregaralcarrito(): void
+    +hacerpqrs(): void
+}
+
+class administrador extends usuario{
+    +añadirproductos(): void
+    +eliminarproductos(): void
+    +modificarproductos(): void
+    +gestionarinventario(): void
+    +gestionarpedidos(): void
+    +gestionarusarios(): void
+}
+
+administrador --> inventario
+
+class inventario{
+    -listaproductos: string
+    +actualizarinventario(): void
+    +verinventario(): void
+}
+
+class producto extends inventario{
+    -nombreproducto: string
+    -imagenproducto: string
+    -categoriaproducto: string
+    -descripcionproducto: string
+    -precioproducto: float
+    -stockproducto: int
+    +verdetalles(): void
+}
+
+class pedido{
+    -numeropedido: int
+    -fechapedido: date
+    -estadopedido: string
+    -totalpedido: float
+    +verpedido(): void
+    +actualizarestado(): void
+    +generarcomprobantepago(): void
+}
+
+cliente <-- pedido
+
+class carrito{
+    -productoscarrito: string
+    -totalcarrito: float
+    +agregarproducto(): void
+    +eliminarproducto(): void
+    +vercarrito(): void
+}
+
+class pago{
+    -metodopago: string
+    -totalpago: float
+    +realizarpago(): void
+    +verrecibo(): void
+}
+
+class pqrs {
+    -numeropqrs: int
+    -fechapqrs: date
+    -estadopqrs: string
+    -descripcionpqrs: string
+    +enviarpqrs(): void
+    +verpqrs(): void
+}
+
+cliente <-- pqrs
+cliente <-- pago
+
+@enduml
